@@ -9,39 +9,15 @@
 <body class="bg-slate-100 text-slate-800 p-4 md:p-8">
   <div class="max-w-7xl mx-auto space-y-6">
     
-    <!-- Header with Embedded Logo -->
-    <div class="bg-blue-950 text-white p-6 rounded-2xl shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border border-blue-800">
-      <div class="flex items-center space-x-4">
-        <div class="w-14 h-14 bg-blue-900 rounded-2xl p-2.5 flex items-center justify-center border border-blue-700 shadow-inner flex-shrink-0">
-          <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="42" stroke="#60A5FA" stroke-width="3" stroke-dasharray="6 4" opacity="0.6"/>
-            <path d="M50 14 C50 14 26 44 26 64 A24 24 0 0 0 74 64 C74 44 50 14 50 14Z" fill="url(#dropGrad)"/>
-            <path d="M38 68 L50 54 L58 61 L70 47" stroke="#FBBF24" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M64 46 H71 V53" stroke="#FBBF24" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-            <defs>
-              <linearGradient id="dropGrad" x1="26" y1="14" x2="74" y2="88" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#3B82F6"/>
-                <stop offset="1" stop-color="#1D4ED8"/>
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-
-        <div>
-          <div class="flex items-center space-x-2">
-            <span class="text-xs font-black tracking-widest text-amber-400 uppercase">SERVO • IOCL</span>
-            <span class="text-[10px] bg-blue-800 text-blue-200 px-2 py-0.5 rounded-full font-semibold border border-blue-700">Oct–Dec 2026</span>
-          </div>
-          <h1 class="text-2xl font-black tracking-tight text-white mt-0.5">
-            Channel Partner <span class="text-emerald-400">Profit Calculator</span>
-          </h1>
-          <p class="text-xs text-blue-300">Fast Incentive, Rebate & Mass Grade Return Modeling</p>
-        </div>
+    <!-- Header -->
+    <div class="bg-blue-900 text-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row justify-between items-start md:items-center">
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight">Channel Partner Profit Calculator</h1>
+        <p class="text-blue-200 text-sm mt-1">IOCL SERVO Scheme | Oct–Dec 2026 (Monthly Target & Upliftment Planner)[cite: 1]</p>
       </div>
-
-      <div class="bg-blue-900/80 backdrop-blur px-4 py-2 rounded-xl border border-blue-700/60 text-right self-stretch md:self-auto flex md:flex-col justify-between items-center md:items-end">
-        <span class="text-[10px] text-blue-300 font-medium uppercase tracking-wider">Base Mass DLP</span>
-        <span class="text-base font-extrabold text-amber-300">₹292.00 / Ltr</span>
+      <div class="mt-3 md:mt-0 flex items-center space-x-2 bg-blue-800 text-xs px-3 py-1.5 rounded-full border border-blue-600">
+        <span>Base DLP (Mass):</span>
+        <span class="font-bold text-yellow-300">₹292.00 / Ltr</span>
       </div>
     </div>
 
@@ -178,28 +154,28 @@
           
           <div class="grid grid-cols-2 gap-2 text-xs">
             <div>
-              <label class="block font-medium text-slate-600 mb-1">1st–15th (@ ₹1.50)</label>
+              <label class="block font-medium text-slate-600 mb-1">1st–15th (@ ₹1.50)[cite: 2]</label>
               <div class="flex items-center">
                 <input type="number" id="eb1" value="50" min="0" max="100" class="w-full p-2 border rounded-lg text-sm">
                 <span class="ml-1 text-slate-500 font-semibold">%</span>
               </div>
             </div>
             <div>
-              <label class="block font-medium text-slate-600 mb-1">16th–20th (@ ₹1.00)</label>
+              <label class="block font-medium text-slate-600 mb-1">16th–20th (@ ₹1.00)[cite: 2]</label>
               <div class="flex items-center">
                 <input type="number" id="eb2" value="30" min="0" max="100" class="w-full p-2 border rounded-lg text-sm">
                 <span class="ml-1 text-slate-500 font-semibold">%</span>
               </div>
             </div>
             <div>
-              <label class="block font-medium text-slate-600 mb-1">21st–25th (@ ₹0.50)</label>
+              <label class="block font-medium text-slate-600 mb-1">21st–25th (@ ₹0.50)[cite: 2]</label>
               <div class="flex items-center">
                 <input type="number" id="eb3" value="20" min="0" max="100" class="w-full p-2 border rounded-lg text-sm">
                 <span class="ml-1 text-slate-500 font-semibold">%</span>
               </div>
             </div>
             <div>
-              <label class="block font-medium text-slate-600 mb-1">26th–End (@ ₹0.00)</label>
+              <label class="block font-medium text-slate-600 mb-1">26th–End (@ ₹0.00)[cite: 2]</label>
               <div class="flex items-center">
                 <input type="number" id="eb4" value="0" min="0" max="100" class="w-full p-2 border rounded-lg text-sm">
                 <span class="ml-1 text-slate-500 font-semibold">%</span>
@@ -213,7 +189,7 @@
         <div class="pt-3 border-t">
           <div class="flex items-center space-x-2">
             <input type="checkbox" id="achieveSecTarget" checked class="rounded text-blue-600">
-            <label for="achieveSecTarget" class="text-xs text-slate-700 font-semibold">Achieves Quarterly Secondary Target</label>
+            <label for="achieveSecTarget" class="text-xs text-slate-700 font-semibold">Achieves Quarterly Secondary Target[cite: 2]</label>
           </div>
         </div>
       </div>
@@ -236,7 +212,7 @@
           <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
             <p class="text-xs font-bold text-slate-500 uppercase">Total Scheme Earnings (Q3)</p>
             <p class="text-2xl font-black text-emerald-600 mt-2" id="resTotalQuarterly">₹0</p>
-            <p class="text-xs text-slate-500 mt-1">Differential Rebate + Schemes</p>
+            <p class="text-xs text-slate-500 mt-1">Differential Rebate + Schemes[cite: 1, 2]</p>
           </div>
         </div>
 
@@ -244,8 +220,8 @@
         <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 p-6 rounded-2xl shadow-sm">
           <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-emerald-200 pb-3">
             <div>
-              <h2 class="text-base font-bold text-emerald-950">Incentive Return on Mass Grades</h2>
-              <p class="text-xs text-emerald-700">Differential benefit (Slab% - 2.5%) + Early Bird + MPI + QPI</p>
+              <h2 class="text-base font-bold text-emerald-950">Incentive Benefit on Mass Grades</h2>
+              <p class="text-xs text-emerald-700">Differential rebate (Slab% - 2.5%) + Early Bird + MPI + QPI[cite: 1, 2]</p>
             </div>
             <div class="flex items-center space-x-2">
               <span class="text-xs bg-emerald-200 text-emerald-900 px-2.5 py-1 rounded-md font-bold">Base DLP: ₹292.00</span>
@@ -256,15 +232,15 @@
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
             <div>
               <p class="text-xs text-emerald-800">Diff. TD Rebate / Ltr</p>
-              <p class="text-xl font-black text-emerald-900 mt-1" id="massDiffPerLtr">₹0.00</p>
+              <p class="text-lg font-black text-emerald-900" id="massDiffPerLtr">₹0.00</p>
             </div>
             <div>
               <p class="text-xs text-emerald-800">Quarterly Mass Rebate</p>
-              <p class="text-xl font-black text-emerald-900 mt-1" id="massDiffQuarterly">₹0</p>
+              <p class="text-lg font-black text-emerald-900" id="massDiffQuarterly">₹0</p>
             </div>
             <div>
               <p class="text-xs text-emerald-800">Net Mass Benefit / Ltr</p>
-              <p class="text-xl font-black text-emerald-900 mt-1" id="massTotalPerLtr">₹0.00</p>
+              <p class="text-lg font-black text-emerald-900" id="massTotalPerLtr">₹0.00</p>
             </div>
           </div>
           <p class="text-xs text-emerald-800 mt-3 font-medium" id="massSchemeNote"></p>
@@ -274,7 +250,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
           <div class="p-4 border-b font-bold text-slate-800 text-sm flex justify-between items-center">
             <span>Month-Wise & Quarterly Financial Breakdown</span>
-            <span class="text-xs font-normal text-slate-500">Excludes Special Grades from MPI, QPI & Early Bird</span>
+            <span class="text-xs font-normal text-slate-500">Excludes Special Grades from MPI, QPI & Early Bird[cite: 2]</span>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-slate-600">
@@ -290,7 +266,7 @@
               <tbody class="divide-y divide-slate-100 font-medium">
                 <tr>
                   <td class="p-3 font-semibold text-slate-800">
-                    <div>Diff. Mass Trade Discount</div>
+                    <div>Diff. Mass Trade Discount[cite: 1]</div>
                     <div class="text-[10px] text-slate-400 font-normal" id="calcMassDiffLabel">-</div>
                   </td>
                   <td class="p-3 text-right" id="rowMassOct">₹0</td>
@@ -300,7 +276,7 @@
                 </tr>
                 <tr>
                   <td class="p-3 font-semibold text-slate-800">
-                    <div>Early Bird Incentive</div>
+                    <div>Early Bird Incentive[cite: 2]</div>
                     <div class="text-[10px] text-slate-400 font-normal" id="calcEbLabel">-</div>
                   </td>
                   <td class="p-3 text-right" id="rowEbOct">₹0</td>
@@ -310,8 +286,8 @@
                 </tr>
                 <tr>
                   <td class="p-3 font-semibold text-slate-800">
-                    <div>Monthly Performance (MPI)</div>
-                    <div class="text-[10px] text-slate-400 font-normal">₹1/Ltr on non-special volume if monthly target achieved</div>
+                    <div>Monthly Performance (MPI)[cite: 2]</div>
+                    <div class="text-[10px] text-slate-400 font-normal">₹1/Ltr on non-special volume if monthly target achieved[cite: 2]</div>
                   </td>
                   <td class="p-3 text-right" id="rowMpiOct">₹0</td>
                   <td class="p-3 text-right" id="rowMpiNov">₹0</td>
@@ -320,7 +296,7 @@
                 </tr>
                 <tr class="bg-indigo-50/40">
                   <td class="p-3 font-semibold text-indigo-950">
-                    <div>Quarterly Performance (QPI)</div>
+                    <div>Quarterly Performance (QPI)[cite: 2]</div>
                     <div class="text-[10px] text-indigo-700 font-normal" id="calcQpiLabel">-</div>
                   </td>
                   <td class="p-3 text-right text-slate-400">N/A</td>
@@ -489,7 +465,7 @@
       }
       const qpiQtrAmt = nonSpecialVolQtr * qpiRate;
 
-      // Mass Grade Direct Margins per Litre
+      // Mass Grade Net Benefit per Litre
       const massDirectMarginsPerLtr = diffMassPerLtr + avgEarlyBirdRate + (mpiQtrAmt > 0 ? (mpiQtrAmt / nonSpecialVolQtr) : 0) + qpiRate;
 
       // Top Cards Update
@@ -503,7 +479,7 @@
       const grandTotalQtr = massDiffQtrAmt + ebQtrAmt + mpiQtrAmt + qpiQtrAmt;
       document.getElementById('resTotalQuarterly').innerText = `₹${Math.round(grandTotalQtr).toLocaleString('en-IN')}`;
 
-      // Return on Mass Grade Panel
+      // Return on Mass Grade Panel (No Net Return Margin %)
       document.getElementById('massDiffBadge').innerText = `Diff Rebate: +${diffMassPct.toFixed(2)}% (${totalSlabPct}% - 2.5%)`;
       document.getElementById('massDiffPerLtr').innerText = `₹${diffMassPerLtr.toFixed(2)}`;
       document.getElementById('massDiffQuarterly').innerText = `₹${Math.round(massDiffQtrAmt).toLocaleString('en-IN')}`;
