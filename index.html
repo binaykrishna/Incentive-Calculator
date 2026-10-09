@@ -13,11 +13,11 @@
     <div class="bg-blue-900 text-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row justify-between items-start md:items-center">
       <div>
         <h1 class="text-2xl font-bold tracking-tight">Channel Partner Profit Calculator</h1>
-        <p class="text-blue-200 text-sm mt-1">IOCL SERVO Scheme | Oct–Dec 2026 (Monthly Share & Target Planner)[cite: 1]</p>
+        <p class="text-blue-200 text-sm mt-1">IOCL SERVO Scheme | Oct–Dec 2026 (Monthly Target & Share Planner)</p>
       </div>
       <div class="mt-3 md:mt-0 flex items-center space-x-2 bg-blue-800 text-xs px-3 py-1.5 rounded-full border border-blue-600">
         <span>Base DLP (Mass):</span>
-        <span class="font-bold text-yellow-300">₹292.00 / Ltr</span>
+        <span class="font-bold text-yellow-300">Rs. 292.00 / Ltr</span>
       </div>
     </div>
 
@@ -25,7 +25,7 @@
     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-3">
         <h2 class="text-base font-bold text-slate-900">1. Monthly Targets, Upliftments & Grade Shares</h2>
-        <span class="text-xs text-slate-500 mt-1 sm:mt-0">Enter distinct targets & grade allocations for each month</span>
+        <span class="text-xs text-slate-500 mt-1 sm:mt-0">Total = Premium + Mass + Special + Aspirational + Other (Auto-calculated)</span>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -67,10 +67,17 @@
               <input type="number" id="hydraOct" value="15" min="0" max="100" class="w-full p-1.5 border rounded text-xs font-semibold">
               <p id="hydraStatusOct" class="text-[10px] mt-0.5 font-medium"></p>
             </div>
+            <div>
+              <div class="flex justify-between text-[11px] text-slate-600">
+                <span>Aspirational</span><span id="aspVolOct" class="font-bold text-blue-700"></span>
+              </div>
+              <input type="number" id="aspOct" value="10" min="0" max="100" class="w-full p-1.5 border rounded text-xs font-semibold">
+            </div>
             <div class="bg-blue-50/70 p-2 rounded text-[11px] flex justify-between items-center text-slate-600">
               <span>Other Grades:</span>
-              <span id="otherOctTag" class="font-bold text-blue-900">15% (3,300 L)</span>
+              <span id="otherOctTag" class="font-bold text-blue-900">5% (1,100 L)</span>
             </div>
+            <p id="exceedAlertOct" class="text-[10px] font-bold text-red-500 hidden">Sum exceeds 100%!</p>
           </div>
         </div>
 
@@ -111,10 +118,17 @@
               <input type="number" id="hydraNov" value="15" min="0" max="100" class="w-full p-1.5 border rounded text-xs font-semibold">
               <p id="hydraStatusNov" class="text-[10px] mt-0.5 font-medium"></p>
             </div>
+            <div>
+              <div class="flex justify-between text-[11px] text-slate-600">
+                <span>Aspirational</span><span id="aspVolNov" class="font-bold text-blue-700"></span>
+              </div>
+              <input type="number" id="aspNov" value="10" min="0" max="100" class="w-full p-1.5 border rounded text-xs font-semibold">
+            </div>
             <div class="bg-blue-50/70 p-2 rounded text-[11px] flex justify-between items-center text-slate-600">
               <span>Other Grades:</span>
-              <span id="otherNovTag" class="font-bold text-blue-900">15% (3,150 L)</span>
+              <span id="otherNovTag" class="font-bold text-blue-900">5% (1,050 L)</span>
             </div>
+            <p id="exceedAlertNov" class="text-[10px] font-bold text-red-500 hidden">Sum exceeds 100%!</p>
           </div>
         </div>
 
@@ -155,10 +169,17 @@
               <input type="number" id="hydraDec" value="15" min="0" max="100" class="w-full p-1.5 border rounded text-xs font-semibold">
               <p id="hydraStatusDec" class="text-[10px] mt-0.5 font-medium"></p>
             </div>
+            <div>
+              <div class="flex justify-between text-[11px] text-slate-600">
+                <span>Aspirational</span><span id="aspVolDec" class="font-bold text-blue-700"></span>
+              </div>
+              <input type="number" id="aspDec" value="10" min="0" max="100" class="w-full p-1.5 border rounded text-xs font-semibold">
+            </div>
             <div class="bg-blue-50/70 p-2 rounded text-[11px] flex justify-between items-center text-slate-600">
               <span>Other Grades:</span>
-              <span id="otherDecTag" class="font-bold text-blue-900">15% (3,450 L)</span>
+              <span id="otherDecTag" class="font-bold text-blue-900">5% (1,150 L)</span>
             </div>
+            <p id="exceedAlertDec" class="text-[10px] font-bold text-red-500 hidden">Sum exceeds 100%!</p>
           </div>
         </div>
 
@@ -175,8 +196,8 @@
           <span id="totUpliftQuarter" class="font-bold text-blue-950 ml-1">0 L</span>
         </div>
         <div>
-          <span class="text-blue-700 font-medium">Consolidated Prem Share:</span>
-          <span id="totPremQuarter" class="font-bold text-blue-950 ml-1">0% (0 L)</span>
+          <span class="text-blue-700 font-medium">Quarterly Hydrashakti Share:</span>
+          <span id="totHydraQuarterTag" class="font-bold px-2 py-0.5 rounded ml-1 bg-blue-100 text-blue-900">0%</span>
         </div>
         <div>
           <span class="text-blue-700 font-medium">Quarterly Achievement:</span>
@@ -188,39 +209,56 @@
     <!-- Slabs & Calculations -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       
-      <!-- Early Bird & Secondary Target Panel -->
+      <!-- Left Config Panel: Stockist Category & Early Bird -->
       <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-5">
-        <div class="space-y-3">
+        
+        <!-- Stockist Category Selection -->
+        <div class="space-y-2">
           <div class="flex justify-between items-center border-b pb-2">
-            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">2. Early Bird Share (%)</h3>
+            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">2. Stockist Category</h3>
+            <span class="text-[11px] text-blue-700 font-bold" id="catRateText">Rs. 2/L</span>
+          </div>
+          <label class="block text-xs font-semibold text-slate-600">Select godown category:</label>
+          <select id="stockistCat" class="w-full p-2.5 border rounded-lg text-xs font-semibold focus:ring-2 focus:ring-blue-500 outline-none bg-slate-50">
+            <option value="2">Premium Stockist (Rs. 2 / Ltr on Prem & Asp)</option>
+            <option value="1">Aspirational Stockist (Rs. 1 / Ltr on Prem & Asp)</option>
+            <option value="0">Mass Stockist (Rs. 0 / Ltr)</option>
+          </select>
+          <p class="text-[11px] text-slate-500">Incentive applies on total volume of Premium & Aspirational grades uplifted in Oct-Dec 2026.</p>
+        </div>
+
+        <!-- Early Bird Slabs Breakdown -->
+        <div class="pt-3 border-t space-y-3">
+          <div class="flex justify-between items-center">
+            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">3. Early Bird Share (%)</h3>
             <span id="ebSumTag" class="text-xs font-bold px-2 py-0.5 rounded bg-slate-100">100%</span>
           </div>
           <p class="text-[11px] text-slate-500">% of non-special volume purchased across date windows:</p>
           
           <div class="grid grid-cols-2 gap-2 text-xs">
             <div>
-              <label class="block font-medium text-slate-600 mb-1">1st–15th (@ ₹1.50)[cite: 2]</label>
+              <label class="block font-medium text-slate-600 mb-1">1st–15th (@ Rs. 1.50)</label>
               <div class="flex items-center">
                 <input type="number" id="eb1" value="50" min="0" max="100" class="w-full p-2 border rounded-lg text-sm font-semibold">
                 <span class="ml-1 text-slate-500 font-semibold">%</span>
               </div>
             </div>
             <div>
-              <label class="block font-medium text-slate-600 mb-1">16th–20th (@ ₹1.00)[cite: 2]</label>
+              <label class="block font-medium text-slate-600 mb-1">16th–20th (@ Rs. 1.00)</label>
               <div class="flex items-center">
                 <input type="number" id="eb2" value="30" min="0" max="100" class="w-full p-2 border rounded-lg text-sm font-semibold">
                 <span class="ml-1 text-slate-500 font-semibold">%</span>
               </div>
             </div>
             <div>
-              <label class="block font-medium text-slate-600 mb-1">21st–25th (@ ₹0.50)[cite: 2]</label>
+              <label class="block font-medium text-slate-600 mb-1">21st–25th (@ Rs. 0.50)</label>
               <div class="flex items-center">
                 <input type="number" id="eb3" value="20" min="0" max="100" class="w-full p-2 border rounded-lg text-sm font-semibold">
                 <span class="ml-1 text-slate-500 font-semibold">%</span>
               </div>
             </div>
             <div>
-              <label class="block font-medium text-slate-600 mb-1">26th–End (@ ₹0.00)[cite: 2]</label>
+              <label class="block font-medium text-slate-600 mb-1">26th–End (@ Rs. 0.00)</label>
               <div class="flex items-center">
                 <input type="number" id="eb4" value="0" min="0" max="100" class="w-full p-2 border rounded-lg text-sm font-semibold">
                 <span class="ml-1 text-slate-500 font-semibold">%</span>
@@ -233,7 +271,7 @@
         <div class="pt-3 border-t">
           <div class="flex items-center space-x-2">
             <input type="checkbox" id="achieveSecTarget" checked class="rounded text-blue-600">
-            <label for="achieveSecTarget" class="text-xs text-slate-700 font-semibold">Achieves Quarterly Secondary Target[cite: 2]</label>
+            <label for="achieveSecTarget" class="text-xs text-slate-700 font-semibold">Achieves Quarterly Secondary Target</label>
           </div>
         </div>
       </div>
@@ -241,22 +279,27 @@
       <!-- Summary & Breakdown Outputs -->
       <div class="lg:col-span-2 space-y-6">
         
-        <!-- Summary Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-            <p class="text-xs font-bold text-slate-500 uppercase">Total MPI Earned (Q3)</p>
-            <p class="text-2xl font-black text-blue-900 mt-2" id="resMpiTotal">₹0</p>
-            <p class="text-xs text-slate-500 mt-1" id="mpiStatusDesc">-</p>
+        <!-- Summary Cards (4 Cards Grid) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+            <p class="text-xs font-bold text-slate-500 uppercase">Stockist Category (Q3)</p>
+            <p class="text-xl font-black text-amber-700 mt-2" id="resStockistCat">Rs. 0</p>
+            <p class="text-[11px] text-slate-500 mt-1" id="stockistCatStatus">Prem + Asp benefit</p>
           </div>
-          <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
+          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+            <p class="text-xs font-bold text-slate-500 uppercase">Monthly Performance (MPI)</p>
+            <p class="text-xl font-black text-blue-900 mt-2" id="resMpiTotal">Rs. 0</p>
+            <p class="text-[11px] text-slate-500 mt-1" id="mpiStatusDesc">-</p>
+          </div>
+          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
             <p class="text-xs font-bold text-slate-500 uppercase">Quarterly Incentive (QPI)</p>
-            <p class="text-2xl font-black text-indigo-900 mt-2" id="resQpi">₹0</p>
-            <p class="text-xs text-slate-500 mt-1" id="qpiStatusDesc">-</p>
+            <p class="text-xl font-black text-indigo-900 mt-2" id="resQpi">Rs. 0</p>
+            <p class="text-[11px] text-slate-500 mt-1" id="qpiStatusDesc">-</p>
           </div>
-          <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
-            <p class="text-xs font-bold text-slate-500 uppercase">Total Scheme Earnings (Q3)</p>
-            <p class="text-2xl font-black text-emerald-600 mt-2" id="resTotalQuarterly">₹0</p>
-            <p class="text-xs text-slate-500 mt-1">Differential Rebate + Schemes[cite: 1, 2]</p>
+          <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+            <p class="text-xs font-bold text-slate-500 uppercase">Total Scheme Earnings</p>
+            <p class="text-xl font-black text-emerald-600 mt-2" id="resTotalQuarterly">Rs. 0</p>
+            <p class="text-[11px] text-slate-500 mt-1">Rebate + QPI + MPI + EB</p>
           </div>
         </div>
 
@@ -265,10 +308,10 @@
           <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-emerald-200 pb-3">
             <div>
               <h2 class="text-base font-bold text-emerald-950">Incentive Benefit on Mass Grades</h2>
-              <p class="text-xs text-emerald-700">Differential rebate (Slab% - 2.5%) + Early Bird + MPI + QPI[cite: 1, 2]</p>
+              <p class="text-xs text-emerald-700">Differential rebate (Slab% - 2.5%) + Early Bird + MPI + QPI</p>
             </div>
             <div class="flex items-center space-x-2">
-              <span class="text-xs bg-emerald-200 text-emerald-900 px-2.5 py-1 rounded-md font-bold">Base DLP: ₹292.00</span>
+              <span class="text-xs bg-emerald-200 text-emerald-900 px-2.5 py-1 rounded-md font-bold">Base DLP: Rs. 292.00</span>
               <span class="text-xs bg-emerald-700 text-white px-2.5 py-1 rounded-md font-bold" id="massDiffBadge">Rebate: 0%</span>
             </div>
           </div>
@@ -276,15 +319,15 @@
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
             <div>
               <p class="text-xs text-emerald-800">Diff. TD Rebate / Ltr</p>
-              <p class="text-lg font-black text-emerald-900" id="massDiffPerLtr">₹0.00</p>
+              <p class="text-lg font-black text-emerald-900" id="massDiffPerLtr">Rs. 0.00</p>
             </div>
             <div>
               <p class="text-xs text-emerald-800">Quarterly Mass Rebate</p>
-              <p class="text-lg font-black text-emerald-900" id="massDiffQuarterly">₹0</p>
+              <p class="text-lg font-black text-emerald-900" id="massDiffQuarterly">Rs. 0</p>
             </div>
             <div>
               <p class="text-xs text-emerald-800">Net Mass Benefit / Ltr</p>
-              <p class="text-lg font-black text-emerald-900" id="massTotalPerLtr">₹0.00</p>
+              <p class="text-lg font-black text-emerald-900" id="massTotalPerLtr">Rs. 0.00</p>
             </div>
           </div>
           <p class="text-xs text-emerald-800 mt-3 font-medium" id="massSchemeNote"></p>
@@ -294,7 +337,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
           <div class="p-4 border-b font-bold text-slate-800 text-sm flex justify-between items-center">
             <span>Month-Wise & Quarterly Financial Breakdown</span>
-            <span class="text-xs font-normal text-slate-500">Excludes Special Grades from MPI, QPI & Early Bird[cite: 2]</span>
+            <span class="text-xs font-normal text-slate-500">Excludes Special Grades from MPI, QPI & Early Bird</span>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-slate-600">
@@ -304,56 +347,66 @@
                   <th class="p-3 text-right">October '26</th>
                   <th class="p-3 text-right">November '26</th>
                   <th class="p-3 text-right">December '26</th>
-                  <th class="p-3 text-right font-bold text-slate-800">Total Q3 (₹)</th>
+                  <th class="p-3 text-right font-bold text-slate-800">Total Q3 (Rs.)</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100 font-medium">
                 <tr>
                   <td class="p-3 font-semibold text-slate-800">
-                    <div>Diff. Mass Trade Discount[cite: 1]</div>
+                    <div>Diff. Mass Trade Discount</div>
                     <div class="text-[10px] text-slate-400 font-normal" id="calcMassDiffLabel">-</div>
                   </td>
-                  <td class="p-3 text-right" id="rowMassOct">₹0</td>
-                  <td class="p-3 text-right" id="rowMassNov">₹0</td>
-                  <td class="p-3 text-right" id="rowMassDec">₹0</td>
-                  <td class="p-3 text-right font-bold" id="rowMassTot">₹0</td>
+                  <td class="p-3 text-right" id="rowMassOct">Rs. 0</td>
+                  <td class="p-3 text-right" id="rowMassNov">Rs. 0</td>
+                  <td class="p-3 text-right" id="rowMassDec">Rs. 0</td>
+                  <td class="p-3 text-right font-bold" id="rowMassTot">Rs. 0</td>
                 </tr>
                 <tr>
                   <td class="p-3 font-semibold text-slate-800">
-                    <div>Early Bird Incentive[cite: 2]</div>
+                    <div>Early Bird Incentive</div>
                     <div class="text-[10px] text-slate-400 font-normal" id="calcEbLabel">-</div>
                   </td>
-                  <td class="p-3 text-right" id="rowEbOct">₹0</td>
-                  <td class="p-3 text-right" id="rowEbNov">₹0</td>
-                  <td class="p-3 text-right" id="rowEbDec">₹0</td>
-                  <td class="p-3 text-right font-bold" id="rowEbTot">₹0</td>
+                  <td class="p-3 text-right" id="rowEbOct">Rs. 0</td>
+                  <td class="p-3 text-right" id="rowEbNov">Rs. 0</td>
+                  <td class="p-3 text-right" id="rowEbDec">Rs. 0</td>
+                  <td class="p-3 text-right font-bold" id="rowEbTot">Rs. 0</td>
                 </tr>
                 <tr>
                   <td class="p-3 font-semibold text-slate-800">
-                    <div>Monthly Performance (MPI)[cite: 2]</div>
-                    <div class="text-[10px] text-slate-400 font-normal">₹1/Ltr on non-special volume if monthly target achieved[cite: 2]</div>
+                    <div>Monthly Performance (MPI)</div>
+                    <div class="text-[10px] text-slate-400 font-normal">Rs. 1/Ltr on non-special volume (Monthly Target Met & Monthly Hydra &lt; 30%)</div>
                   </td>
-                  <td class="p-3 text-right" id="rowMpiOct">₹0</td>
-                  <td class="p-3 text-right" id="rowMpiNov">₹0</td>
-                  <td class="p-3 text-right" id="rowMpiDec">₹0</td>
-                  <td class="p-3 text-right font-bold" id="rowMpiTot">₹0</td>
+                  <td class="p-3 text-right" id="rowMpiOct">Rs. 0</td>
+                  <td class="p-3 text-right" id="rowMpiNov">Rs. 0</td>
+                  <td class="p-3 text-right" id="rowMpiDec">Rs. 0</td>
+                  <td class="p-3 text-right font-bold" id="rowMpiTot">Rs. 0</td>
+                </tr>
+                <tr class="bg-amber-50/50">
+                  <td class="p-3 font-semibold text-amber-950">
+                    <div>Quarterly Stockist Category Incentive</div>
+                    <div class="text-[10px] text-amber-800 font-normal" id="calcStockistCatLabel">-</div>
+                  </td>
+                  <td class="p-3 text-right text-slate-400">N/A</td>
+                  <td class="p-3 text-right text-slate-400">N/A</td>
+                  <td class="p-3 text-right text-slate-400">N/A</td>
+                  <td class="p-3 text-right font-bold text-amber-900" id="rowStockistCatTot">Rs. 0</td>
                 </tr>
                 <tr class="bg-indigo-50/40">
                   <td class="p-3 font-semibold text-indigo-950">
-                    <div>Quarterly Performance (QPI)[cite: 2]</div>
+                    <div>Quarterly Performance (QPI)</div>
                     <div class="text-[10px] text-indigo-700 font-normal" id="calcQpiLabel">-</div>
                   </td>
                   <td class="p-3 text-right text-slate-400">N/A</td>
                   <td class="p-3 text-right text-slate-400">N/A</td>
                   <td class="p-3 text-right text-slate-400">N/A</td>
-                  <td class="p-3 text-right font-bold text-indigo-900" id="rowQpiTot">₹0</td>
+                  <td class="p-3 text-right font-bold text-indigo-900" id="rowQpiTot">Rs. 0</td>
                 </tr>
                 <tr class="bg-slate-100 font-bold text-slate-900 text-sm">
                   <td class="p-3">Total Estimated Earning</td>
-                  <td class="p-3 text-right" id="rowTotOct">₹0</td>
-                  <td class="p-3 text-right" id="rowTotNov">₹0</td>
-                  <td class="p-3 text-right" id="rowTotDec">₹0</td>
-                  <td class="p-3 text-right text-emerald-700" id="rowGrandTot">₹0</td>
+                  <td class="p-3 text-right" id="rowTotOct">Rs. 0</td>
+                  <td class="p-3 text-right" id="rowTotNov">Rs. 0</td>
+                  <td class="p-3 text-right" id="rowTotDec">Rs. 0</td>
+                  <td class="p-3 text-right text-emerald-700" id="rowGrandTot">Rs. 0</td>
                 </tr>
               </tbody>
             </table>
@@ -382,16 +435,23 @@
       const premOctPct = parseFloat(document.getElementById('premOct').value) || 0;
       const massOctPct = parseFloat(document.getElementById('massOct').value) || 0;
       const hydraOctPct = parseFloat(document.getElementById('hydraOct').value) || 0;
+      const aspOctPct = parseFloat(document.getElementById('aspOct').value) || 0;
 
       // November Grade Percentages
       const premNovPct = parseFloat(document.getElementById('premNov').value) || 0;
       const massNovPct = parseFloat(document.getElementById('massNov').value) || 0;
       const hydraNovPct = parseFloat(document.getElementById('hydraNov').value) || 0;
+      const aspNovPct = parseFloat(document.getElementById('aspNov').value) || 0;
 
       // December Grade Percentages
       const premDecPct = parseFloat(document.getElementById('premDec').value) || 0;
       const massDecPct = parseFloat(document.getElementById('massDec').value) || 0;
       const hydraDecPct = parseFloat(document.getElementById('hydraDec').value) || 0;
+      const aspDecPct = parseFloat(document.getElementById('aspDec').value) || 0;
+
+      // Stockist Category Rate
+      const stockistCatRate = parseFloat(document.getElementById('stockistCat').value) || 0;
+      document.getElementById('catRateText').innerText = `Rs. ${stockistCatRate}/L`;
 
       // Early Bird Percentages
       const eb1Pct = parseFloat(document.getElementById('eb1').value) || 0;
@@ -401,36 +461,41 @@
 
       const achieveSecTarget = document.getElementById('achieveSecTarget').checked;
 
-      // Helper function to update month cards & derive volumes
-      function processMonth(uplift, target, premPct, massPct, hydraPct, premVolId, massVolId, hydraVolId, hydraStatusId, otherTagId, achTagId) {
+      // Helper function to process individual months: Total = Prem + Mass + Hydra + Asp + Other
+      function processMonth(uplift, target, premPct, massPct, hydraPct, aspPct, premVolId, massVolId, hydraVolId, aspVolId, hydraStatusId, otherTagId, achTagId, alertId) {
         const achPct = target > 0 ? (uplift / target) * 100 : 0;
         const achElem = document.getElementById(achTagId);
         achElem.innerText = `${achPct.toFixed(0)}% Achieved`;
         achElem.className = `text-[11px] font-bold px-2 py-0.5 rounded ${achPct >= 100 ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`;
 
+        const enteredSum = premPct + massPct + hydraPct + aspPct;
+        const otherPct = Math.max(0, 100 - enteredSum);
+        const isExceeded = enteredSum > 100;
+        document.getElementById(alertId).classList.toggle('hidden', !isExceeded);
+
         const premVol = uplift * (premPct / 100);
         const massVol = uplift * (massPct / 100);
         const hydraVol = uplift * (hydraPct / 100);
-
-        const otherPct = Math.max(0, 100 - (premPct + massPct + hydraPct));
+        const aspVol = uplift * (aspPct / 100);
         const otherVol = uplift * (otherPct / 100);
 
         document.getElementById(premVolId).innerText = `(${Math.round(premVol).toLocaleString()} L)`;
         document.getElementById(massVolId).innerText = `(${Math.round(massVol).toLocaleString()} L)`;
         document.getElementById(hydraVolId).innerText = `(${Math.round(hydraVol).toLocaleString()} L)`;
+        document.getElementById(aspVolId).innerText = `(${Math.round(aspVol).toLocaleString()} L)`;
         document.getElementById(otherTagId).innerText = `${otherPct.toFixed(1)}% (${Math.round(otherVol).toLocaleString()} L)`;
 
-        const isHydraEligible = hydraPct < 30;
+        const isMonthlyHydraEligible = hydraPct < 30;
         const hydraElem = document.getElementById(hydraStatusId);
-        hydraElem.innerText = `Hydrashakti: ${hydraPct}% (${isHydraEligible ? 'Eligible: <30%' : 'Ineligible: ≥30%'})`;
-        hydraElem.className = `text-[10px] mt-0.5 font-medium ${isHydraEligible ? 'text-emerald-600' : 'text-red-500'}`;
+        hydraElem.innerText = `Hydrashakti: ${hydraPct}% (MPI ${isMonthlyHydraEligible ? 'Eligible: <30%' : 'Ineligible: ≥30%'})`;
+        hydraElem.className = `text-[10px] mt-0.5 font-medium ${isMonthlyHydraEligible ? 'text-emerald-600' : 'text-red-500'}`;
 
-        return { premVol, massVol, hydraVol, otherVol, isHydraEligible };
+        return { premVol, massVol, hydraVol, aspVol, otherVol, isMonthlyHydraEligible };
       }
 
-      const oct = processMonth(upliftOct, targetOct, premOctPct, massOctPct, hydraOctPct, 'premVolOct', 'massVolOct', 'hydraVolOct', 'hydraStatusOct', 'otherOctTag', 'octAchTag');
-      const nov = processMonth(upliftNov, targetNov, premNovPct, massNovPct, hydraNovPct, 'premVolNov', 'massVolNov', 'hydraVolNov', 'hydraStatusNov', 'otherNovTag', 'novAchTag');
-      const dec = processMonth(upliftDec, targetDec, premDecPct, massDecPct, hydraDecPct, 'premVolDec', 'massVolDec', 'hydraVolDec', 'hydraStatusDec', 'otherDecTag', 'decAchTag');
+      const oct = processMonth(upliftOct, targetOct, premOctPct, massOctPct, hydraOctPct, aspOctPct, 'premVolOct', 'massVolOct', 'hydraVolOct', 'aspVolOct', 'hydraStatusOct', 'otherOctTag', 'octAchTag', 'exceedAlertOct');
+      const nov = processMonth(upliftNov, targetNov, premNovPct, massNovPct, hydraNovPct, aspNovPct, 'premVolNov', 'massVolNov', 'hydraVolNov', 'aspVolNov', 'hydraStatusNov', 'otherNovTag', 'novAchTag', 'exceedAlertNov');
+      const dec = processMonth(upliftDec, targetDec, premDecPct, massDecPct, hydraDecPct, aspDecPct, 'premVolDec', 'massVolDec', 'hydraVolDec', 'aspVolDec', 'hydraStatusDec', 'otherDecTag', 'decAchTag', 'exceedAlertDec');
 
       // Consolidated Quarter Volumes
       const totTargetQtr = targetOct + targetNov + targetDec;
@@ -440,14 +505,22 @@
       const totPremVolQtr = oct.premVol + nov.premVol + dec.premVol;
       const totMassVolQtr = oct.massVol + nov.massVol + dec.massVol;
       const totHydraVolQtr = oct.hydraVol + nov.hydraVol + dec.hydraVol;
+      const totAspVolQtr = oct.aspVol + nov.aspVol + dec.aspVol;
+      const totOtherVolQtr = oct.otherVol + nov.otherVol + dec.otherVol;
       const totNonSpecialVolQtr = totUpliftQtr - totHydraVolQtr;
 
       const qtrPremPct = totUpliftQtr > 0 ? (totPremVolQtr / totUpliftQtr) * 100 : 0;
+      
+      // Cumulative Hydrashakti share across the entire quarter
       const qtrHydraPct = totUpliftQtr > 0 ? (totHydraVolQtr / totUpliftQtr) * 100 : 0;
+      const isQtrHydraEligible = qtrHydraPct < 30;
 
       document.getElementById('totTargetQuarter').innerText = `${Math.round(totTargetQtr).toLocaleString()} L`;
       document.getElementById('totUpliftQuarter').innerText = `${Math.round(totUpliftQtr).toLocaleString()} L`;
-      document.getElementById('totPremQuarter').innerText = `${qtrPremPct.toFixed(1)}% (${Math.round(totPremVolQtr).toLocaleString()} L)`;
+      
+      const hydraQtrTag = document.getElementById('totHydraQuarterTag');
+      hydraQtrTag.innerText = `${qtrHydraPct.toFixed(1)}% (${isQtrHydraEligible ? 'QPI Eligible: <30%' : 'QPI Ineligible: ≥30%'})`;
+      hydraQtrTag.className = `font-bold px-2 py-0.5 rounded ml-1 ${isQtrHydraEligible ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`;
 
       const qtrAchTag = document.getElementById('quarterAchTag');
       qtrAchTag.innerText = `${qtrAchPct.toFixed(1)}%`;
@@ -462,7 +535,7 @@
 
       const avgEarlyBirdRate = ((eb1Pct * 1.50) + (eb2Pct * 1.00) + (eb3Pct * 0.50) + (eb4Pct * 0.00)) / 100;
 
-      // 1. Special Scheme on Mass Grades: Differential Trade Discount (Section 1A)
+      // 1. Special Scheme on Mass Grades: Differential Trade Discount
       let totalSlabPct = 2.50;
       const qtrTargetAchieved = totUpliftQtr >= totTargetQtr;
 
@@ -494,18 +567,22 @@
       const ebDecAmt = nonSpecialVolDec * avgEarlyBirdRate;
       const ebQtrAmt = ebOctAmt + ebNovAmt + ebDecAmt;
 
-      // 3. Monthly Performance Incentive (MPI) (Excludes Hydrashakti)
-      const mpiOctEligible = (upliftOct >= targetOct) && oct.isHydraEligible;
-      const mpiNovEligible = (upliftNov >= targetNov) && nov.isHydraEligible;
-      const mpiDecEligible = (upliftDec >= targetDec) && dec.isHydraEligible;
+      // 3. Monthly Performance Incentive (MPI)
+      const mpiOctEligible = (upliftOct >= targetOct) && oct.isMonthlyHydraEligible;
+      const mpiNovEligible = (upliftNov >= targetNov) && nov.isMonthlyHydraEligible;
+      const mpiDecEligible = (upliftDec >= targetDec) && dec.isMonthlyHydraEligible;
 
       const mpiOctAmt = mpiOctEligible ? nonSpecialVolOct * 1.00 : 0;
       const mpiNovAmt = mpiNovEligible ? nonSpecialVolNov * 1.00 : 0;
       const mpiDecAmt = mpiDecEligible ? nonSpecialVolDec * 1.00 : 0;
       const mpiQtrAmt = mpiOctAmt + mpiNovAmt + mpiDecAmt;
 
-      // 4. Quarterly Performance Incentive (QPI) (Excludes Hydrashakti)
-      const isQtrHydraEligible = qtrHydraPct < 30;
+      // 4. Quarterly Stockist Category Incentive
+      // Applicable strictly on volume of Premium & Aspirational grades uplifted during Oct-Dec 2026
+      const qtrPremAndAspVol = totPremVolQtr + totAspVolQtr;
+      const stockistCatQtrAmt = qtrPremAndAspVol * stockistCatRate;
+
+      // 5. Quarterly Performance Incentive (QPI)
       let qpiRate = 0;
       if (qtrTargetAchieved && isQtrHydraEligible) {
         qpiRate += 1.00;
@@ -517,63 +594,74 @@
       const massDirectMarginsPerLtr = diffMassPerLtr + avgEarlyBirdRate + (totNonSpecialVolQtr > 0 ? (mpiQtrAmt / totNonSpecialVolQtr) : 0) + qpiRate;
 
       // Top Cards Update
+      const catNames = { '2': 'Premium Stockist', '1': 'Aspirational Stockist', '0': 'Mass Stockist' };
+      document.getElementById('resStockistCat').innerText = `Rs. ${Math.round(stockistCatQtrAmt).toLocaleString('en-IN')}`;
+      document.getElementById('stockistCatStatus').innerText = `${catNames[stockistCatRate]} (@ Rs. ${stockistCatRate}/L on ${Math.round(qtrPremAndAspVol).toLocaleString()} L)`;
+
       const monthsMetCount = (mpiOctEligible ? 1 : 0) + (mpiNovEligible ? 1 : 0) + (mpiDecEligible ? 1 : 0);
-      document.getElementById('resMpiTotal').innerText = `₹${Math.round(mpiQtrAmt).toLocaleString('en-IN')}`;
-      document.getElementById('mpiStatusDesc').innerText = `${monthsMetCount} of 3 months met targets & Hydra < 30%`;
+      document.getElementById('resMpiTotal').innerText = `Rs. ${Math.round(mpiQtrAmt).toLocaleString('en-IN')}`;
+      document.getElementById('mpiStatusDesc').innerText = `${monthsMetCount} of 3 months met targets & monthly Hydra < 30%`;
 
-      document.getElementById('resQpi').innerText = `₹${Math.round(qpiQtrAmt).toLocaleString('en-IN')}`;
-      document.getElementById('qpiStatusDesc').innerText = qpiRate > 0 ? `₹${qpiRate.toFixed(2)}/Ltr on non-special volume` : 'Quarterly targets not met';
+      document.getElementById('resQpi').innerText = `Rs. ${Math.round(qpiQtrAmt).toLocaleString('en-IN')}`;
+      document.getElementById('qpiStatusDesc').innerText = qpiRate > 0 
+        ? `Rs. ${qpiRate.toFixed(2)}/Ltr on non-special volume (Qtr Hydra ${qtrHydraPct.toFixed(1)}% < 30%)` 
+        : (isQtrHydraEligible ? 'Quarterly sales target not achieved' : `Ineligible: Quarterly Hydra (${qtrHydraPct.toFixed(1)}%) ≥ 30%`);
 
-      const grandTotalQtr = massDiffQtrAmt + ebQtrAmt + mpiQtrAmt + qpiQtrAmt;
-      document.getElementById('resTotalQuarterly').innerText = `₹${Math.round(grandTotalQtr).toLocaleString('en-IN')}`;
+      const grandTotalQtr = massDiffQtrAmt + ebQtrAmt + mpiQtrAmt + stockistCatQtrAmt + qpiQtrAmt;
+      document.getElementById('resTotalQuarterly').innerText = `Rs. ${Math.round(grandTotalQtr).toLocaleString('en-IN')}`;
 
       // Return on Mass Grade Panel
       document.getElementById('massDiffBadge').innerText = `Diff Rebate: +${diffMassPct.toFixed(2)}% (${totalSlabPct}% - 2.5%)`;
-      document.getElementById('massDiffPerLtr').innerText = `₹${diffMassPerLtr.toFixed(2)}`;
-      document.getElementById('massDiffQuarterly').innerText = `₹${Math.round(massDiffQtrAmt).toLocaleString('en-IN')}`;
-      document.getElementById('massTotalPerLtr').innerText = `₹${massDirectMarginsPerLtr.toFixed(2)} / L`;
+      document.getElementById('massDiffPerLtr').innerText = `Rs. ${diffMassPerLtr.toFixed(2)}`;
+      document.getElementById('massDiffQuarterly').innerText = `Rs. ${Math.round(massDiffQtrAmt).toLocaleString('en-IN')}`;
+      document.getElementById('massTotalPerLtr').innerText = `Rs. ${massDirectMarginsPerLtr.toFixed(2)} / L`;
       document.getElementById('massSchemeNote').innerText = qtrTargetAchieved 
-        ? `Quarterly target achieved! Slab applied: ${totalSlabPct.toFixed(2)}% (Prem Share: ${qtrPremPct.toFixed(1)}% / ${Math.round(totPremVolQtr).toLocaleString()} L). Differential rebate passed via SAP: ${diffMassPct.toFixed(2)}% (₹${diffMassPerLtr.toFixed(2)}/Ltr).`
+        ? `Quarterly target achieved! Slab applied: ${totalSlabPct.toFixed(2)}% (Prem Share: ${qtrPremPct.toFixed(1)}% / ${Math.round(totPremVolQtr).toLocaleString()} L). Differential rebate passed via SAP: ${diffMassPct.toFixed(2)}% (Rs. ${diffMassPerLtr.toFixed(2)}/Ltr).`
         : `Quarterly target missed; Mass discount remains at invoice rate of 2.50% (No post-scheme differential rebate).`;
 
       // Breakdown Table
-      document.getElementById('calcMassDiffLabel').innerText = `+${diffMassPct.toFixed(2)}% (${totalSlabPct}% - 2.5%) on ₹${DLP_MASS} DLP (₹${diffMassPerLtr.toFixed(2)}/Ltr)`;
-      document.getElementById('rowMassOct').innerText = `₹${Math.round(massDiffOctAmt).toLocaleString('en-IN')}`;
-      document.getElementById('rowMassNov').innerText = `₹${Math.round(massDiffNovAmt).toLocaleString('en-IN')}`;
-      document.getElementById('rowMassDec').innerText = `₹${Math.round(massDiffDecAmt).toLocaleString('en-IN')}`;
-      document.getElementById('rowMassTot').innerText = `₹${Math.round(massDiffQtrAmt).toLocaleString('en-IN')}`;
+      document.getElementById('calcMassDiffLabel').innerText = `+${diffMassPct.toFixed(2)}% (${totalSlabPct}% - 2.5%) on Rs. ${DLP_MASS} DLP (Rs. ${diffMassPerLtr.toFixed(2)}/Ltr)`;
+      document.getElementById('rowMassOct').innerText = `Rs. ${Math.round(massDiffOctAmt).toLocaleString('en-IN')}`;
+      document.getElementById('rowMassNov').innerText = `Rs. ${Math.round(massDiffNovAmt).toLocaleString('en-IN')}`;
+      document.getElementById('rowMassDec').innerText = `Rs. ${Math.round(massDiffDecAmt).toLocaleString('en-IN')}`;
+      document.getElementById('rowMassTot').innerText = `Rs. ${Math.round(massDiffQtrAmt).toLocaleString('en-IN')}`;
 
-      document.getElementById('calcEbLabel').innerText = `Avg ₹${avgEarlyBirdRate.toFixed(2)}/Ltr on non-special volume`;
-      document.getElementById('rowEbOct').innerText = `₹${Math.round(ebOctAmt).toLocaleString('en-IN')}`;
-      document.getElementById('rowEbNov').innerText = `₹${Math.round(ebNovAmt).toLocaleString('en-IN')}`;
-      document.getElementById('rowEbDec').innerText = `₹${Math.round(ebDecAmt).toLocaleString('en-IN')}`;
-      document.getElementById('rowEbTot').innerText = `₹${Math.round(ebQtrAmt).toLocaleString('en-IN')}`;
+      document.getElementById('calcEbLabel').innerText = `Avg Rs. ${avgEarlyBirdRate.toFixed(2)}/Ltr on non-special volume`;
+      document.getElementById('rowEbOct').innerText = `Rs. ${Math.round(ebOctAmt).toLocaleString('en-IN')}`;
+      document.getElementById('rowEbNov').innerText = `Rs. ${Math.round(ebNovAmt).toLocaleString('en-IN')}`;
+      document.getElementById('rowEbDec').innerText = `Rs. ${Math.round(ebDecAmt).toLocaleString('en-IN')}`;
+      document.getElementById('rowEbTot').innerText = `Rs. ${Math.round(ebQtrAmt).toLocaleString('en-IN')}`;
 
-      document.getElementById('rowMpiOct').innerText = mpiOctEligible ? `₹${Math.round(mpiOctAmt).toLocaleString('en-IN')}` : '₹0 (Target missed)';
-      document.getElementById('rowMpiNov').innerText = mpiNovEligible ? `₹${Math.round(mpiNovAmt).toLocaleString('en-IN')}` : '₹0 (Target missed)';
-      document.getElementById('rowMpiDec').innerText = mpiDecEligible ? `₹${Math.round(mpiDecAmt).toLocaleString('en-IN')}` : '₹0 (Target missed)';
-      document.getElementById('rowMpiTot').innerText = `₹${Math.round(mpiQtrAmt).toLocaleString('en-IN')}`;
+      document.getElementById('rowMpiOct').innerText = mpiOctEligible ? `Rs. ${Math.round(mpiOctAmt).toLocaleString('en-IN')}` : `Rs. 0 (${upliftOct < targetOct ? 'Target missed' : 'Hydra ≥ 30%'})`;
+      document.getElementById('rowMpiNov').innerText = mpiNovEligible ? `Rs. ${Math.round(mpiNovAmt).toLocaleString('en-IN')}` : `Rs. 0 (${upliftNov < targetNov ? 'Target missed' : 'Hydra ≥ 30%'})`;
+      document.getElementById('rowMpiDec').innerText = mpiDecEligible ? `Rs. ${Math.round(mpiDecAmt).toLocaleString('en-IN')}` : `Rs. 0 (${upliftDec < targetDec ? 'Target missed' : 'Hydra ≥ 30%'})`;
+      document.getElementById('rowMpiTot').innerText = `Rs. ${Math.round(mpiQtrAmt).toLocaleString('en-IN')}`;
 
-      document.getElementById('calcQpiLabel').innerText = qpiRate > 0 ? `Earned @ ₹${qpiRate.toFixed(2)}/Ltr on non-special volume (${Math.round(totNonSpecialVolQtr).toLocaleString()} L)` : 'Eligible target conditions not met';
-      document.getElementById('rowQpiTot').innerText = `₹${Math.round(qpiQtrAmt).toLocaleString('en-IN')}`;
+      document.getElementById('calcStockistCatLabel').innerText = `Rs. ${stockistCatRate}/Ltr on Q3 Premium & Aspirational volume (${Math.round(qtrPremAndAspVol).toLocaleString()} L)`;
+      document.getElementById('rowStockistCatTot').innerText = `Rs. ${Math.round(stockistCatQtrAmt).toLocaleString('en-IN')}`;
+
+      document.getElementById('calcQpiLabel').innerText = qpiRate > 0 
+        ? `Earned @ Rs. ${qpiRate.toFixed(2)}/Ltr on non-special volume (${Math.round(totNonSpecialVolQtr).toLocaleString()} L | Qtr Hydra: ${qtrHydraPct.toFixed(1)}%)` 
+        : (isQtrHydraEligible ? 'Target conditions not met' : `Ineligible: Quarterly Hydra ${qtrHydraPct.toFixed(1)}% ≥ 30%`);
+      document.getElementById('rowQpiTot').innerText = `Rs. ${Math.round(qpiQtrAmt).toLocaleString('en-IN')}`;
 
       // Monthly Totals
       const totOct = massDiffOctAmt + ebOctAmt + mpiOctAmt;
       const totNov = massDiffNovAmt + ebNovAmt + mpiNovAmt;
       const totDec = massDiffDecAmt + ebDecAmt + mpiDecAmt;
 
-      document.getElementById('rowTotOct').innerText = `₹${Math.round(totOct).toLocaleString('en-IN')}`;
-      document.getElementById('rowTotNov').innerText = `₹${Math.round(totNov).toLocaleString('en-IN')}`;
-      document.getElementById('rowTotDec').innerText = `₹${Math.round(totDec).toLocaleString('en-IN')}`;
-      document.getElementById('rowGrandTot').innerText = `₹${Math.round(grandTotalQtr).toLocaleString('en-IN')}`;
+      document.getElementById('rowTotOct').innerText = `Rs. ${Math.round(totOct).toLocaleString('en-IN')}`;
+      document.getElementById('rowTotNov').innerText = `Rs. ${Math.round(totNov).toLocaleString('en-IN')}`;
+      document.getElementById('rowTotDec').innerText = `Rs. ${Math.round(totDec).toLocaleString('en-IN')}`;
+      document.getElementById('rowGrandTot').innerText = `Rs. ${Math.round(grandTotalQtr).toLocaleString('en-IN')}`;
     }
 
     // Attach Listeners
     [
-      'targetOct', 'upliftOct', 'premOct', 'massOct', 'hydraOct',
-      'targetNov', 'upliftNov', 'premNov', 'massNov', 'hydraNov',
-      'targetDec', 'upliftDec', 'premDec', 'massDec', 'hydraDec',
-      'eb1', 'eb2', 'eb3', 'eb4', 'achieveSecTarget'
+      'targetOct', 'upliftOct', 'premOct', 'massOct', 'hydraOct', 'aspOct',
+      'targetNov', 'upliftNov', 'premNov', 'massNov', 'hydraNov', 'aspNov',
+      'targetDec', 'upliftDec', 'premDec', 'massDec', 'hydraDec', 'aspDec',
+      'stockistCat', 'eb1', 'eb2', 'eb3', 'eb4', 'achieveSecTarget'
     ].forEach(id => document.getElementById(id).addEventListener('input', calc));
 
     calc();
